@@ -22,6 +22,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "83a7746c-1e7e-43ae-af49-0a64bc2f2931"
+      }
+    },
+    "owner": "artttur"
   }
 }
