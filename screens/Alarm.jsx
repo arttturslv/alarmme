@@ -10,7 +10,7 @@ export default function Alarm({navigation}) {
         <Pressable onPress={() => navigation.navigate('AlarmOptions')}>
           <Text style={styles.addButton}>+</Text>
         </Pressable>
-        <AlarmItem></AlarmItem>
+        <AlarmItem navigation={navigation}></AlarmItem>
         <AlarmItem></AlarmItem>
         <AlarmItem></AlarmItem>
       </View>
