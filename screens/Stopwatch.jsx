@@ -3,7 +3,7 @@ import Buttons from '../components/Buttons';
 import { useEffect, useState } from 'react';
 
 export default function Stopwatch() {
-
+  const [isStarted, setStarted] = useState(false);
   const [stopWatch, setStopWatch] = useState(null);
   const [marked, setMarked] = useState([]);
   const [time, setTime] = useState({ ms: 0, s: 0, m: 0, h: 0 });
@@ -48,7 +48,9 @@ export default function Stopwatch() {
     for (const key in marked) {
       console.log(key.toString())
     }
-
+    if(marked.length>10) {
+      setMarked(prev => prev.slice(1));
+    }
     setMarked(prev => ([...prev, time]))
   }
 
@@ -69,7 +71,11 @@ export default function Stopwatch() {
           {
             marked ?
               marked.map((item, i) => (
-                <Text key={i} style={{ fontSize: 12, fontWeight: '300', color: '#fff' }}>{item.m}:{item.s}.{item.ms}</Text>
+                <Text key={i} style={{ fontSize: 12, fontWeight: '300', color: '#fff' }}>
+                  {item.h!=0?(item.h < 10 ? ("0" + item.h +":") : (item.h+":")):''}
+                  {item.m < 10 ? "0" + item.m : item.m}
+                  :{item.s < 10 ? "0" + item.s : item.s}
+                  .{item.ms}</Text>
               ))
               :
               <></>
@@ -79,6 +85,8 @@ export default function Stopwatch() {
 
       <View>
         <Buttons
+          started={isStarted}
+          setStarted={setStarted}
           title1={'Iniciar'}
           fn1={start}
           fn2={() => stop(stopWatch)}

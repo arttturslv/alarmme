@@ -1,10 +1,8 @@
 import { TouchableHighlight, StyleSheet, Text, View } from 'react-native';
 import Colors from '../constants/Colors';
 import { useState } from 'react';
-export default function Buttons({title1, title2, title3, fn1, fn2, fn3}) {
+export default function Buttons({started, setStarted, title1, title2, title3, fn1, fn2, fn3}) {
   
-  const [started, setStarted] = useState(false);
-
   function startTimer() {
     setStarted(!started);
     fn1();

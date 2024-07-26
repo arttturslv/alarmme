@@ -6,7 +6,7 @@ import Buttons from '../components/Buttons';
 import CountdownEffect from '../components/CountdownEffect';
 export default function Timer() {
   const [time, setTime] = useState({s: 0, m: 0, h: 0});
-  const [isStarted, setStarted] = useState(true);
+  const [isStarted, setStarted] = useState(false);
   const [timer, setTimer] = useState(null);
   const [porcentage, setPorcentage] = useState(0.5);
   var updateS = time.s;
@@ -15,7 +15,7 @@ export default function Timer() {
   var initialTimeInMinutes=0;
 
   function Zerar() {
-    setTime({s: 0, m: 0, h: 0});
+    setTime(prev => prev = {s: 0, m: 0, h: 0});
     setStarted(false);
     clearInterval(timer);
   }
@@ -24,7 +24,6 @@ export default function Timer() {
     setTime({s: updateS, m: updateM, h: updateH })
     setStarted(true);
     initialTimeInMinutes = ((time.s * 60) + time.m + (time.h / 60));
-    console.log("iniciando com ", time)
 
     setTimer(setInterval(
       () => {
@@ -36,10 +35,11 @@ export default function Timer() {
   function Pausar() {
     console.log('pausar');
   }
-
+  var fullTime=777;
   const run = () => {
+    fullTime = updateH+updateM+updateS;
 
-    if((updateH+updateM+updateS)<=0) {
+    if(fullTime==0) {
       Zerar();
     }
 
@@ -52,7 +52,8 @@ export default function Timer() {
       updateM = 59;
     }
     updateS--;
-    setPorcentage(totalTimePorcentage(initialTimeInMinutes, ((time.s * 60) + time.m + (time.h / 60))))
+    let porc = totalTimePorcentage(initialTimeInMinutes, ((time.s * 60) + time.m + (time.h / 60)));
+    setPorcentage(prev => prev=porc)
     return setTime({s: updateS, m: updateM, h: updateH })
   }
 
@@ -69,7 +70,10 @@ export default function Timer() {
         <TimePicker setTime={setTime} ></TimePicker>
 
       }
+      <Text>{fullTime}</Text>
       <Buttons
+          started={isStarted}
+          setStarted={setStarted}
           title1={'Iniciar'}
           title2={'Zerar'}
           title3={'Pausar'} 

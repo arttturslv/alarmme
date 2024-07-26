@@ -89,12 +89,13 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
-        gap: 20
+        gap: 20,
+        height: 540
     },
     time: {
         flexDirection: 'row',
         alignItems:'center',
-        justifyContent:'center'
+        justifyContent:'center',
     },
     hour: {
         color: Colors.DavysGray,
