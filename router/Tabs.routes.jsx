@@ -4,13 +4,12 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Alarm from "../screens/Alarm";
 import Stopwatch from "../screens/Stopwatch";
 import Timer from "../screens/Timer";
-import AlarmOptions from "../screens/AlarmOptions";
-import { Text } from "react-native";
+
 const Tab = createBottomTabNavigator();
 
 export default function Tabs() {
     return (
-        <Tab.Navigator
+        <Tab.Navigator 
             screenOptions={{
                 headerShown: false,
                 tabBarIcon: ()=>{null},
