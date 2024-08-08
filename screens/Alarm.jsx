@@ -4,8 +4,7 @@ import AlarmOption from './AlarmOptions'
 import Colors from '../constants/Colors';
 import { useState } from 'react';
 
-import Web from '../assets/icons/web.svg'
-
+import Web from '../assets/icons/web.svgx'
 export default function Alarm({ navigation }) {
 
 
@@ -62,8 +61,7 @@ export default function Alarm({ navigation }) {
         <Image style={{ width: 25, height: 25 }} source={require('../assets/icons/setting.svg')}></Image>
       </Pressable>
 
-      
-      <Web width={100} height={100} /> 
+      <Web width={120} height={40}></Web>
 
       <View style={styles.alarmItems}>
 
