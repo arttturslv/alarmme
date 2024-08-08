@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Pressable, Image } from 'react-native';
 import Buttons from '../components/Buttons';
 import { useEffect, useState } from 'react';
 
@@ -56,6 +56,9 @@ export default function Stopwatch() {
 
   return (
     <View style={styles.container}>
+      <Pressable onPress={()=> navigation.navigate('Settings')} style={{position: 'absolute', top: 65, right: 25}}>
+        <Image style={{width:25, height: 25}}  source={require('../assets/icons/setting.svg')}></Image>
+      </Pressable>
       <View style={{ flex: 0.7, justifyContent: 'center' }}>
         <View style={{ flexDirection: 'row' }}>
           {

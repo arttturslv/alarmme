@@ -8,6 +8,11 @@ export default function CountdownEffect({time, porcentage}) {
     const circle_length = 1000;
     const radius = circle_length / (2*Math.PI);
 
+    function formataTime(t) {
+        console.log("% - ", porcentage)
+        return t.toString().padStart(2,'0');
+    }
+
     return (
         <View style={styles.container}>
             <View>
@@ -28,11 +33,12 @@ export default function CountdownEffect({time, porcentage}) {
                         stroke="#17181B"
                         strokeWidth={18}
                         strokeDasharray={1000}
-                        strokeDashoffset={1000*porcentage}  
+                        strokeDashoffset={porcentage}  
                     />
-                    <Text style={[styles.hour, {width:width, top:height/3.40}]}>{time.h < 10 ? "0" + time.h: time.h}
-                    :{time.m < 10 ? "0" + time.m : time.m}
-                    :{time.s < 10 ? "0" + time.s : time.s}</Text>
+                    <Text style={[styles.hour, {width:width, top:height/3.40}]}>
+                    {formataTime(time.h)}
+                    :{formataTime(time.m)}
+                    :{formataTime(time.s)}</Text>
 
                 </Svg>
             </View>

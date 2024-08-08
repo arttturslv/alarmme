@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         gap: 20,
-        height: 540
+        height: 320
     },
     time: {
         flexDirection: 'row',
