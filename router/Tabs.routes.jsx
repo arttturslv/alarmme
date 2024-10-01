@@ -1,28 +1,33 @@
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { Text } from "react-native";
 
 import Alarm from "../screens/Alarm";
 import Stopwatch from "../screens/Stopwatch";
 import Timer from "../screens/Timer";
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialTopTabNavigator();
 
 export default function Tabs() {
     return (
-        <Tab.Navigator 
-            screenOptions={{
+        <Tab.Navigator
+        tabBarPosition="bottom" 
+            screenOptions={({route}) => ({
                 headerShown: false,
-                tabBarIcon: ()=>{null},
-                tabBarStyle: {
+                tabBarItemStyle: {
                     backgroundColor: Colors.Jet,
-                    borderTopWidth:0,
-                    justifyContent: 'center'
                 },
-                tabBarLabelStyle: {
-                    fontSize: 18,
-                    bottom: 12
+                tabBarIcon: ()=>{null},
+                tabBarLabel:({focused}) => {
+                    const label = route.name;
+                    return (   
+                        <Text style={{fontSize: 18, bottom: 12, color: Colors.FloralWhite, textDecorationLine: focused ? 'underline' : 'none' }}>
+                            {label}
+                        </Text>
+                    )
                 }
-            }}
+            })}
         >
             <Tab.Screen name = 'Alarm' component={Alarm} />
             <Tab.Screen name = 'Stopwatch' component={Stopwatch} />
