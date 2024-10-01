@@ -1,18 +1,52 @@
-import React, { useState} from "react";
+import React, { useEffect, useState} from "react";
 import {View, Pressable, Text, Image, StyleSheet } from "react-native";
 
-const Calendary = ({datesSelected, setDateSelected}) => {
+const Calendary = ({date, setDate}) => {
 
+
+  useEffect(()=> {
+    if(date==null) {
+      setDate(prev =[{
+        name: 'domingo',
+        active: true
+      },
+      {
+        name: 'segunda',
+        active: false
+      },
+      {
+        name: 'terça',
+        active: false
+      },
+      {
+        name: 'quarta',
+        active: false
+      },
+      {
+        name: 'quinta',
+        active: false
+      },
+      {
+        name: 'sexta',
+        active: false
+      },
+      {
+        name: 'sábado',
+        active: false
+      }])
+    }
+  
+  },[])
 
   function switchDay(day) {
-    var daysSaved = [...datesSelected];
+    var daysSaved = [...date];
 
     day = {...day, active: !day.active}
 
     daysSaved = daysSaved.map(savedDay => 
       savedDay.name === day.name ? day : savedDay // Substitui o objeto correspondente
     );
-    setDateSelected(daysSaved)
+    setDate(daysSaved)
   }
 
   return (
@@ -20,7 +54,7 @@ const Calendary = ({datesSelected, setDateSelected}) => {
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <View style={{flexDirection:"row", gap: 6}}>
             {
-              datesSelected.map((day) => {
+              date.map((day) => {
                 return (
                   <Pressable style={{paddingHorizontal: 3}} onPress={()=>switchDay(day)} >
                     <Text Text style={day.active?{fontSize: 16, color: Colors.Amethyst}:{fontSize: 16, color: Colors.BattleshipGray}}>{day.name.substring(0,3)}</Text>

@@ -4,7 +4,7 @@ import AlarmOption from './AlarmOptions'
 import Colors from '../constants/Colors';
 import { useState } from 'react';
 
-import Web from '../assets/icons/web.svgx'
+import Web from '../assets/icons/web.png'
 export default function Alarm({ navigation }) {
 
 
@@ -26,25 +26,34 @@ export default function Alarm({ navigation }) {
           soundPath: "file:///data/user/0/host.exp.exponent/cache/DocumentPicker/e5552e58-4ae3-4594-99be-31db3dfa961e.mp3",
         },
         vibration: true,
-        date: {
-          type: 'daysWeek',
-          days: 'seg, ter, qua'
-        }
-      },
-      {
-        name: "Acordar cedo",
-        active: true,
-        time: "05:54:22",
-        type: "Persistente",
-        music: {
-          name: 'Metallica',
-          soundPath: "file:///data/user/0/host.exp.exponent/cache/DocumentPicker/e5552e58-4ae3-4594-99be-31db3dfa961e.mp3",
+        date: [{
+          name: 'domingo',
+          active: true
         },
-        vibration: true,
-        date: {
-          type: 'daysWeek',
-          days: 'seg, ter, qua'
-        }
+        {
+          name: 'segunda',
+          active: false
+        },
+        {
+          name: 'terça',
+          active: false
+        },
+        {
+          name: 'quarta',
+          active: false
+        },
+        {
+          name: 'quinta',
+          active: false
+        },
+        {
+          name: 'sexta',
+          active: false
+        },
+        {
+          name: 'sábado',
+          active: false
+        }]
       },
     ]
   )
@@ -58,15 +67,13 @@ export default function Alarm({ navigation }) {
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
       <Pressable onPress={() => navigation.navigate('Settings')} style={{ position: 'absolute', top: 65, right: 25 }}>
-        <Image style={{ width: 25, height: 25 }} source={require('../assets/icons/setting.svg')}></Image>
+        <Image style={{ width: 25, height: 25, tintColor: '#989898' }} source={require('../assets/icons/setting.png')}></Image>
       </Pressable>
-
-      <Web width={120} height={40}></Web>
 
       <View style={styles.alarmItems}>
 
-        <Pressable onPress={() => navigation.navigate('AlarmOptions')}>
-          <Image style={styles.addButton} source={require('../assets/icons/plus.svg')}></Image>
+        <Pressable onPress={() => navigation.navigate('AlarmOptions', {item: null})}>
+          <Image style={styles.addButton} source={require('../assets/icons/plus.png')}></Image>
         </Pressable>
           
           {
@@ -97,5 +104,7 @@ const styles = StyleSheet.create({
     width: 26,
     height: 26,
     margin: 10,
+    tintColor: '#989898'
+
   }
 });

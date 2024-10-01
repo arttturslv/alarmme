@@ -22,7 +22,14 @@ export default function AlarmItem({navigation, item}) {
                 </View>
                 <View style={{flexDirection: 'row', alignItems: 'center', gap: 16}}>
                     <View>
-                        <Text style={{color: '#fff'}}>{date.days}</Text>
+                        {
+                            date.map(item=> {
+                                return (
+                                    item.active&&
+                                    <Text style={{color: '#fff'}}>{item.name.substring(0,3)}</Text>
+                                )
+                            })
+                        }
                     </View>
                     <Switch status={item.active}/>
                 </View>

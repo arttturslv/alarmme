@@ -2,49 +2,35 @@ import { View, StyleSheet, Text, TextInput, Image, Pressable, ScrollView } from 
 import { SelectList } from "react-native-dropdown-select-list";
 import Colors from "../constants/Colors";
 import TimePicker from "../components/TimePicker";
-import DatePicker from "../components/DatePicker";
 import { useState } from "react";
 import Switch from "../components/Switch";
+import Calendary from '../components/Calendary'
 import * as DocumentPicker from 'expo-document-picker';
 import { Audio } from 'expo-av';
 
-import Calendar from '../assets/icons/calendar.svg'
-import Saved from '../assets/icons/saved.svg'
-import Chevron from '../assets/icons/chevron.svg'
-import Back from '../assets/icons/back.svg'
-import Folder from '../assets/icons/folder.svg'
-
-import Calendary from "../components/Calendary";
-
 export default function AlarmOptions({navigation, route}) {
+
     const {item} = route.params;
 
-    const [name, setName] = useState(item.name || "Nome do alarme");
-    const [isActive, setIsActive] = useState(item.active || true);
-    const [time, setTime] = useState(formataData(item.time) || {s: 0, m: 0, h: 0});
-    const [type, setType] = useState(item.type || "Normal");
-    const [music, setMusic] = useState({name:item.music.name, soundPath:item.music.soundPath} || {name:"Night Detective", soundPath:NightDetective});
-    const [isVibration, setIsVibration] = useState(item.name || true);
-    const [date, setDate] = useState(item.name || null);
+    const [name, setName] = useState(item?.name || "Nome do alarme");
+    const [isActive, setIsActive] = useState(item?.active || true);
+    const [time, setTime] = useState(formataData(item?.time) || {s: 0, m: 0, h: 0});
+    const [type, setType] = useState(item?.type || "Normal");
+    const [music, setMusic] = useState(
+        item?.music ? { name: item.music.name, soundPath: item.music.soundPath } : { name: "Night Detective", soundPath: "../assets/music/Night Detective - Amaksi.mp3" }
+      );
+    const [isVibration, setIsVibration] = useState(item?.name || true);
+    const [date, setDate] = useState(item?.date);
     
     function formataData(itemDate) {
         //15:54:22
+        if(itemDate==null)
+            return null;
         let splittedTime = itemDate.split(':');
         return {s:parseInt(splittedTime[2]), m:parseInt(splittedTime[1]), h:parseInt(splittedTime[0])}
     }
 
-    /*
-        date: {
-          type: 'daysWeek',
-          days: 'seg, ter, qua'
-        }
-    */
-
-
-
-
     const [selected, setSelected] = useState('Normal');
-    
     const [audioName, setAudioName] = useState('Musica padrão');
     const [audioFile, setAudioFile] = useState(null);
 
@@ -76,6 +62,7 @@ export default function AlarmOptions({navigation, route}) {
         }
     }
 
+
     return (
         <View style={{backgroundColor: Colors.Jet , flex: 1, padding: 30, gap: 12}}>
 
@@ -83,7 +70,6 @@ export default function AlarmOptions({navigation, route}) {
             <TimePicker setTime={setTime}></TimePicker>
         </View>
 
-        <Calendary/>
 
             <View 
                 style={{
@@ -91,13 +77,15 @@ export default function AlarmOptions({navigation, route}) {
                 }}
             >
                 <TextInput
-                   placeholder={item.name || "Nome do alarme"} 
+                   placeholder={item?.name || "Nome do alarme"} 
                    placeholderTextColor={Colors.BattleshipGray}
                    style={{fontSize:24, fontWeight: '300', paddingHorizontal: 14,paddingTop:6, textAlign: 'center', color:'#fff'}}
                  ></TextInput>
             </View>
 
-            <DatePicker/>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 12, gap: 16}}>
+                <Calendary date={date} setDate={setDate}/>
+            </View>
 
             <View>
                 <Text
@@ -112,6 +100,8 @@ export default function AlarmOptions({navigation, route}) {
                 dropdownTextStyles={{fontSize:22, color: Colors.BattleshipGray, fontWeight: '300'}}
                 dropdownStyles={{color: Colors.BattleshipGray, borderColor: Colors.Gunmetal, borderWidth:2}}
                 search={false}
+                arrowicon={<Image style={[styles.icon, {rotation: 60}]} source={require('../assets/icons/chevron.png')} />}
+                closeicon={<Image style={styles.icon} source={require('../assets/icons/chevron.png')} />}
                 />
             </View>
 
@@ -124,8 +114,8 @@ export default function AlarmOptions({navigation, route}) {
                     flexDirection: 'row', justifyContent:'space-between', paddingHorizontal:8, alignItems: 'center' , borderColor: Colors.Gunmetal, borderWidth:2, height: 50, borderRadius:8, alignContent: 'center'
                 }}>
                 <Text style={styles.placeholder}
-                >{item.music.name  || audioName}</Text>
-
+                >{item?.music.name  || audioName}</Text>
+                    <Image style={styles.icon} source={require('../assets/icons/folder.png')} />    
                 </View>
 
             </Pressable>
@@ -137,12 +127,12 @@ export default function AlarmOptions({navigation, route}) {
 
             <View style={{flexDirection:'row', justifyContent:'space-around', alignItems: 'center', flex: 0.2}}>
                 <Pressable onPress={()=> navigation.goBack()} style={{flexDirection:'row'}}>
+                    <Image style={styles.icon} source={require('../assets/icons/back.png')} />    
                     <Text style={[styles.subtitle, {fontSize:18}]}>Voltar</Text>
-                    <Image style={styles.icon} source={{uri: 'https://cdn-icons-png.freepik.com/256/84/84339.png?semt=ais_hybrid'}} />    
                 </Pressable>
                 <Pressable style={{flexDirection:'row'}}>
                     <Text style={[styles.subtitle, {fontSize:18}]}>Salvar</Text>
-                    <Image style={styles.icon} source={{uri: 'https://static.thenounproject.com/png/3810268-200.png'}} />    
+                    <Image style={styles.icon} source={require('../assets/icons/saved.png')} />    
                 </Pressable>
             </View>
         </View>
@@ -154,7 +144,9 @@ const styles = StyleSheet.create({
     icon: {
         width:24, 
         height:24, 
-        tintColor: Colors.BattleshipGray
+        tintColor: Colors.BattleshipGray,
+        tintColor: '#989898',
+        transform: [{rotateX: '90deg'}, {rotateZ: '0.48rad'}]
     },
     subtitle: {
         fontSize:20,

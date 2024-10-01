@@ -13,8 +13,8 @@ import Tabs from './Tabs.routes'
 export default function StackRoutes () {
     return (
       <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="Tabs">
-        <Stack.Screen name="AlarmOptions" component={AlarmOptions} />
-        <Stack.Screen name = 'Settings' component={Settings} />
+        <Stack.Screen options={{presentation: 'modal'}} name="AlarmOptions" component={AlarmOptions} />
+        <Stack.Screen options={{presentation: 'modal'}} name = 'Settings' component={Settings} />
         <Stack.Screen name = 'Tabs' component={Tabs} />
       </Stack.Navigator>
     )
